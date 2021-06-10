@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% include 'enfermeriaapp/enfermeria_links.html' %}
+    <link rel="stylesheet" href="{% static 'enfermeriaapp/home_page.css' %}">
+    <title>Enfermeria HomePage</title>
+</head>
+
+<body>
+    {% include 'enfermeriaapp/enfermeria_navbar.html' %}
+    <div class="backgImg">
+        <img class="homeImage" src="{% static 'enfermeriaapp/enfermeria_homepage_bckg.jpg' %}" alt="enfermeria">
+    </div>
+    <div class="eContainer" id="eCardOne">
+        <div class="ecard-header">
+            Administracion de personal y servicios
+        </div>
+        <div class="ecard-body">
+            <p>
+                Inicia session para registrar el personal de enfermeria y administracion para <br />
+                el gestionamiento de las reservas y atenciones a domicilio. Nuestro sistema <br />
+                hace facil, sencillo y eficiente la administracion de su valioso recurso humano. <br />
+                Tambien adiciona, edita y elmina servicios de la enfermeria, con actualizacion <br />
+                inmediata
+            </p>
+        </div>
+    </div>
+    <form action="{% url 'enfermeriaapp:homepage_view' %}" method="POST">
+        {% csrf_token%}
+        <div class="logBtn">
+            {% if is_logged %}
+            <button class="btn btn-warning" name="logoutBtn">Salir</button>
+            {% else %}
+            <button class="btn btn-success" name="loginBtn">Iniciar session</button>
+            {% endif %}
+        </div>
+    </form>
+</body>
+
+</html>

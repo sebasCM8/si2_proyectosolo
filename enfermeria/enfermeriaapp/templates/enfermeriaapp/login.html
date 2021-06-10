@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% include 'enfermeriaapp/enfermeria_links.html' %}
+
+    <title>Enfermeria Login</title>
+</head>
+
+<body>
+    {% include 'enfermeriaapp/enfermeria_navbar.html' %}
+    <div class="container">
+        <div class="card" style="width: 80%; margin: 30px auto">
+            <div class="card-header" style="background: #343A40; color:white;">
+                <h2>Iniciar Session</h2>
+            </div>
+            <div class="card-body">
+                <form action="{% url 'enfermeriaapp:login_view' %}" method='POST'>
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" name="username" class="form-control" placeholder="usuario..">
+                        <br>
+                        <input type="password" name="password" class="form-control" placeholder="contraseña...">
+                    </div>
+                    <button class="btn btn-dark">Ingresar</button>
+                </form>
+            </div>
+            <div class="card-footer">
+                {% if msg %}
+                <label for="" style="color: red;">{{msg}}</label>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

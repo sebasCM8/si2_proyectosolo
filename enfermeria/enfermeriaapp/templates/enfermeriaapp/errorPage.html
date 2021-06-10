@@ -1,0 +1,26 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {% include 'enfermeriaapp/enfermeria_links.html' %}
+    <link rel="stylesheet" href="{% static 'enfermeriaapp/errorpage.css' %}">
+
+    <title>Document</title>
+</head>
+<body>
+    {% include 'enfermeriaapp/enfermeria_navbar.html' %}
+    <div class="container">
+        <div class="errorHeader">
+            <h1>Oops!, No tienes acceso a esta sección</h1>
+        </div>
+        <div class="errorBody">
+            <img class="errorimg" src="{% static 'enfermeriaapp/errorImage.png' %}" alt="">
+        </div>
+    </div>
+</body>
+</html>

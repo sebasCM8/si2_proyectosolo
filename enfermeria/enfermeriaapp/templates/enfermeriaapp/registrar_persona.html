@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% include 'enfermeriaapp/enfermeria_links.html' %}
+
+    <title>Registrar persona</title>
+</head>
+
+<body>
+    {% include 'enfermeriaapp/enfermeria_navbar.html' %}
+    <div class="container">
+        <div class="card" style="width: 80%; margin: 30px auto">
+            <div class="card-header" style="background: #343A40; color:white;">
+                <h2>Registro de nueva persona</h2>
+            </div>
+            <div class="card-body">
+                <form action="{% url 'enfermeriaapp:registrar_persona_view' %}" method='POST'>
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <h4>Datos personales</h4>
+                        <input type="text" name="per_nombre" class="form-control" maxlength="30"
+                            placeholder="nombre...">
+                        <br>
+                        <input type="text" name="per_apPaterno" class="form-control" maxlength="30"
+                            placeholder="apellido paterno...">
+                        <br>
+                        <input type="text" name="per_apMaterno" class="form-control" maxlength="30"
+                            placeholder="apellido materno...">
+                        <br>
+                        <input type="text" name="per_ci" class="form-control" maxlength="12"
+                            placeholder="numero de carnet...">
+                        <br>
+                        <input type="text" name="per_celular" class="form-control" placeholder="celular..."
+                            maxlength="30">
+                        <br>
+                        <input type="text" name="per_direccion" class="form-control" placeholder="direccion..."
+                            maxlength="80">
+                        <br>
+                        <input type="text" name="per_email" class="form-control" placeholder="email..." maxlength="50">
+                    </div>
+                    <div class="form-group">
+                        <h4>Sexo.- </h4>
+                        <div class="form-check">
+                            <input type="radio" name="per_sexo" id="female" value="f" class="form-check-input">
+                            <label for="female" class="form-check-label">Mujer</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" name="per_sexo" id="male" value="m" class="form-check-input">
+                            <label for="male" class="form-check-label">Hombre</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <h4>Trabajo de la persona</h4>
+                    <div class="form-check">
+                        <input id="administrador" type="checkbox" name="admin" value="admin" class="form-check-input">
+                        <label for="administrador">Administrador</label>
+                        <br>
+                        <input id="enfermero" type="checkbox" name="enfermero" value="enfermero"
+                            class="form-check-input">
+                        <label for="enfermero">Enfermero</label>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <h4>Usuario</h4>
+                        <input type="text" name="usu_nombre" class="form-control" maxlength="30"
+                            placeholder="nombre de usuario...">
+                        <br>
+                        <input type="text" name="usu_password" class="form-control" maxlength="30"
+                            placeholder="contraseña temporal...">
+                    </div>
+                    <hr>
+                    <button class="btn btn-dark" name="registrar">Registrar persona</button>
+                </form>
+            </div>
+            <div class="card-footer">
+                {% if ok %}
+                <label for="" style="color: green;">{{msg}}</label>
+                {% else %}
+                <label for="" style="color: red;">{{msg}}</label>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
