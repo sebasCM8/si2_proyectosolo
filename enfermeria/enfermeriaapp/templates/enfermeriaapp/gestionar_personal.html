@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% include 'enfermeriaapp/enfermeria_links.html' %}
+    <link rel="stylesheet" href="{% static 'enfermeriaapp/home_page.css' %}">
+</head>
+<body>
+    {% include 'enfermeriaapp/enfermeria_navbar.html' %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card" style="width: 50%;">
+                    <img src="{% static 'enfermeriaapp/adicionar_persona.png' %}" class="" alt="adicionar_personal">
+                    <div class="card-body">
+                        <h5 class="card-title">Registrar nueva persona</h5>
+                        <p>Registra nuevas personas que se incorporan al personal de la enfermeria <br>
+                        sus datos personales, usuario y puestos en la enfermeria.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'enfermeriaapp:registrar_persona_view' %}" class="btn btn-success">Ir a registrar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card" style="width: 50%;">
+                    <img src="{% static 'enfermeriaapp/ver_personal.png' %}" alt="adicionar_personal">
+                    <div class="card-body">
+                        <h5 class="card-title">Ver personal</h5>
+                        <p>Observa una lista de todo el personal actual, mira el perfil, datos <br>
+                            personales y otras acciones.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'enfermeriaapp:ver_personal_view' %}" class="btn btn-success">Ir a personal</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

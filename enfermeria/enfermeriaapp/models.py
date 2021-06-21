@@ -19,6 +19,12 @@ class Usuario(models.Model):
     
     usu_per = models.ForeignKey(Persona, on_delete=models.CASCADE)
 
+    def es_admin(self):
+        the_admin = Administrador.objects.filter(adm_estado=1, adm_per=self.usu_per)
+        if len(the_admin) == 1: return True
+        return False
+
+
 class Administrador(models.Model):
     adm_estado = models.IntegerField()
 

@@ -1,7 +1,3 @@
-body{
-    background-color:#F0F2F5;
-}
-
 .homeImage{
     height: 100%;
     display: block;
@@ -45,4 +41,8 @@ body{
     position: absolute;
     top:90%;
     left: 2%;
+}
+
+.custoImage{
+    max-width: 50%;
 }

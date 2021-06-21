@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% include 'enfermeriaapp/enfermeria_links.html' %}
+    <link rel="stylesheet" href="{% static 'enfermeriaapp/gestionar.css' %}">
+    <title>Document</title>
+</head>
+
+<body>
+    {% include 'enfermeriaapp/enfermeria_navbar.html' %}
+    <form action="{% url 'enfermeriaapp:gestionar_servicios_view' %}" method="POST">
+        {% csrf_token %}
+        <div class="container">
+            <div class="row">
+                <div class="nuevoElemento">
+                    <h2>Registrar nuevo servicio</h2>
+                    <p>Servicios de la enfermeria. Servicios que la enfermeria realiza a domicilio <button
+                            class="btn btn-primary" name="nuevo">Nuevo Servicio</button></p>
+                </div>
+            </div>
+            <br><br>
+            <div class="listaElementos">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4>Nombre</h4>
+                    </div>
+                    <div class="col-md-4">
+                        <h4>Precio</h4>
+                    </div>
+                    <div class="col-md-4">
+                        <h4>Opciones</h4>
+                    </div>
+                </div>
+                <br>
+                {% for ser in servicios %}
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="">{{ser.ser_nombre}}</label>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="">{{ser.ser_precio}}</label>
+                    </div>
+                    <div class="col-md-4">
+                        <button name="ver" value="{{ser.id}}" class="btn btn-info">Ver</button>
+                        <button name="editar" value="{{ser.id}}" class="btn btn-success">Editar</button>
+                        <button name="eliminar" value="{{ser.id}}" class="btn btn-warning">Eliminar</button>
+                    </div>
+                </div>
+                <hr>
+                {% endfor %}
+            </div>
+        </div>
+    </form>
+</body>
+
+</html>

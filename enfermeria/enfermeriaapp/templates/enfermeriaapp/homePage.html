@@ -30,16 +30,24 @@
             </p>
         </div>
     </div>
-    <form action="{% url 'enfermeriaapp:homepage_view' %}" method="POST">
-        {% csrf_token%}
-        <div class="logBtn">
+
+    <div class="logBtn">
+        <form action="{% url 'enfermeriaapp:homepage_view' %}" method="POST">
+            {% csrf_token%}
             {% if is_logged %}
             <button class="btn btn-warning" name="logoutBtn">Salir</button>
             {% else %}
             <button class="btn btn-success" name="loginBtn">Iniciar session</button>
             {% endif %}
+        </form>
+        {% if is_logged %}
+        <br>
+        <div class="perfilButton">
+            <a href="{% url 'enfermeriaapp:perfil_view' %}" class="btn btn-info">Perfil</a>
         </div>
-    </form>
+        {% endif %}
+    </div>
+
 </body>
 
 </html>

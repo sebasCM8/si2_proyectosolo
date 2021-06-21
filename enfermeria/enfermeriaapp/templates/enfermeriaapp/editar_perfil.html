@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% include 'enfermeriaapp/enfermeria_links.html' %}
+    <link rel="stylesheet" href="{% static 'enfermeriaapp/home_page.css' %}">
+    <title>Editar perfil</title>
+</head>
+
+<body>
+    {% include 'enfermeriaapp/enfermeria_navbar.html' %}
+    <div class="container">
+        <div class="perfilHeader">
+            <h2>Editar perfil de usuario: <span>{{user.usu_username}}</span></h2>
+        </div>
+        <div class="perfilBody">
+            <div class="card">
+                <div class="card-body">
+                    <form action="{% url 'enfermeriaapp:perfil_view' %}" method="POST">
+                        {% csrf_token %}
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="" class="form-label">Contraseña</label>
+                                <input type="text" value="{{user.usu_password}}" class="form-control"
+                                    placeholder="contraseña..." name="password">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" value="{{user.usu_per.per_nombre}}"
+                                    placeholder="nombre.." name="nombre">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="" class="form-label">Apellido Paterno</label>
+                                <input type="text" value="{{user.usu_per.per_apellidoP}}" class="form-control"
+                                    placeholder="apellido paterno..." name="apellido_p">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="" class="form-label">Apellido Materno</label>
+                                <input type="text" value="{{user.usu_per.per_apellidoM}}" class="form-control"
+                                    placeholder="apellido materno" name="apellido_m">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="" class="form-label">Celular</label>
+                                <input type="text" class="form-control" value="{{user.usu_per.per_celular}}"
+                                    placeholder="celular..." name="celular">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="" class="form-label">Email</label>
+                                <input type="text" value="{{user.usu_per.per_email}}" class="form-control"
+                                    placeholder="email..." name="email">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="" class="form-label">Direccion</label>
+                                <input type="text" value="{{user.usu_per.per_direccion}}" class="form-control"
+                                    placeholder="direccion..." name="direccion">
+                            </div>
+                        </div>
+                        <br>
+                        <button class="btn btn-primary" value="{{user.id}}" name="editar">Editar
+                            datos</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

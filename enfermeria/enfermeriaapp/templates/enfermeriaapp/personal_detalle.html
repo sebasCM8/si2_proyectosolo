@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% include 'enfermeriaapp/enfermeria_links.html' %}
+
+    <title>Document</title>
+</head>
+<body>
+    {% include 'enfermeriaapp/enfermeria_navbar.html' %}
+    <div class="container">
+        <div class="perfilHeader">
+            <h2>Perfil de usuario: <span>{{user.usu_username}}</span></h2>
+        </div>
+        <div class="perfilBody">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4"><strong>Nombre: </strong>{{user.usu_per.per_nombre}}</div>
+                        <div class="col-md-4"><strong>Apellido paterno: </strong>{{user.usu_per.per_apellidoP}}</div>
+                        <div class="col-md-4"><strong>Apellido materno:</strong> {{user.usu_per.per_apellidoM}}</div>
+                    </div>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-md-6"><strong>Celular:</strong> {{user.usu_per.per_celular}}</div>
+                        <div class="col-md-6"><strong>Email:</strong> {{user.usu_per.per_email}}</div>
+                        <div class="col-md-6"><strong>CI:</strong> {{user.usu_per.per_ci}}</div>
+                        <div class="col-md-6"><strong>Direccion:</strong> {{user.usu_per.per_direccion}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

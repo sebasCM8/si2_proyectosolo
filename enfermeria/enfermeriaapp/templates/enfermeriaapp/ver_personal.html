@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% include 'enfermeriaapp/enfermeria_links.html' %}
+</head>
+
+<body>
+    {% include 'enfermeriaapp/enfermeria_navbar.html' %}
+    <div class="container">
+        <br><br>
+        <div class="row">
+            <div class="col-md-4">
+                <h4>Nombre</h4>
+            </div>
+            <div class="col-md-4">
+                <h4>CI</h4>
+            </div>
+            <div class="col-md-4">
+                <h4>Opciones</h4>
+            </div>
+        </div>
+        <br>
+        <form action="{% url 'enfermeriaapp:ver_personal_view' %}" method="POST">
+            {% csrf_token %}
+            {% for persona in personal %}
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="">{{persona.usu_per.per_nombre}}</label>
+                </div>
+                <div class="col-md-4">
+                    <label for="">{{persona.usu_per.per_ci}}</label>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-info" value="{{persona.id}}" name="ver">Ver</button>
+                    <button class="btn btn-danger" value="{{persona.id}}" name="eliminar">Eliminar</button>
+                </div>
+            </div>
+            <hr>
+            {% endfor %}
+        </form>
+    </div>
+</body>
+
+</html>
