@@ -1,43 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     {% include 'enfermeriaapp/enfermeria_links.html' %}
-    
+
     <title>Perfil</title>
 </head>
+
 <body>
     {% include 'enfermeriaapp/enfermeria_navbar.html' %}
     <div class="container">
-        <div class="perfilHeader">
-            <h2>Perfil de usuario: <span>{{user.usu_username}}</span></h2>
-        </div>
-        <div class="perfilBody">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6"><strong>Contraseña:</strong> {{user.usu_password}}</div>
-                        <div class="col-md-6"><strong>Nombre:</strong> {{user.usu_per.per_nombre}} {{user.usu_per.per_apellidoP}} {{user.usu_per.per_apellidoM}}</div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-6"><strong>Celular:</strong> {{user.usu_per.per_celular}}</div>
-                        <div class="col-md-6"><strong>Email:</strong> {{user.usu_per.per_email}}</div>
-                        <div class="col-md-6"><strong>CI:</strong> {{user.usu_per.per_ci}}</div>
-                        <div class="col-md-6"><strong>Direccion:</strong> {{user.usu_per.per_direccion}}</div>
-                    </div>
+        <br>
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">Perfil de usuario: <span>{{user.usu_username}}</span></h2>
+                <div class="row">
+                    <div class="col-md-6"><strong>Contraseña:</strong> {{user.usu_password}}</div>
+                    <div class="col-md-6"><strong>Nombre:</strong> {{user.usu_per.per_nombre}}
+                        {{user.usu_per.per_apellidoP}} {{user.usu_per.per_apellidoM}}</div>
                 </div>
-                <form action="{% url 'enfermeriaapp:perfil_view' %}" method="POST">
-                    {% csrf_token %}
-                    <div class="card-footer">
-                        <button class="btn btn-primary" value="{{user.id}}" name="editar_perfil">Editar perfil</button>
-                    </div>
-                </form>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6"><strong>Celular:</strong> {{user.usu_per.per_celular}}</div>
+                    <div class="col-md-6"><strong>Email:</strong> {{user.usu_per.per_email}}</div>
+                    <div class="col-md-6"><strong>CI:</strong> {{user.usu_per.per_ci}}</div>
+                    <div class="col-md-6"><strong>Direccion:</strong> {{user.usu_per.per_direccion}}</div>
+                </div>
             </div>
+            <form action="{% url 'enfermeriaapp:perfil_view' %}" method="POST">
+                {% csrf_token %}
+                <div class="card-footer">
+                    <button class="btn btn-primary" value="{{user.id}}" name="editar_perfil">Editar perfil</button>
+                </div>
+            </form>
         </div>
     </div>
 </body>
+
 </html>

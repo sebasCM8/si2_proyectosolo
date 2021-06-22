@@ -16,22 +16,33 @@
     <div class="backgImg">
         <img class="homeImage" src="{% static 'enfermeriaapp/enfermeria_homepage_bckg.jpg' %}" alt="enfermeria">
     </div>
-    <div class="eContainer" id="eCardOne">
-        <div class="ecard-header">
-            Administracion de personal y servicios
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card eShadow" style="margin: 20px auto;">
+                    <div class="card-header">
+                        Administracion de personal y servicios
+                    </div>
+                    <div class="card-body">
+                        <p>
+                            Inicia session para registrar el personal de enfermeria y administracion para
+                            el gestionamiento de las reservas y atenciones a domicilio. Nuestro sistema
+                            hace facil, sencillo y eficiente la administracion de su valioso recurso humano.
+                            Tambien adiciona, edita y elmina servicios de la enfermeria, con actualizacion
+                            inmediata
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card eShadow" style="margin: 20px auto;">
+                    <div class="card-body">
+                        <h4 class="card-title">Contactanos</h4>
+                        <p><strong>Email:</strong> example@gmail.com</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="ecard-body">
-            <p>
-                Inicia session para registrar el personal de enfermeria y administracion para <br />
-                el gestionamiento de las reservas y atenciones a domicilio. Nuestro sistema <br />
-                hace facil, sencillo y eficiente la administracion de su valioso recurso humano. <br />
-                Tambien adiciona, edita y elmina servicios de la enfermeria, con actualizacion <br />
-                inmediata
-            </p>
-        </div>
-    </div>
-
-    <div class="logBtn">
         <form action="{% url 'enfermeriaapp:homepage_view' %}" method="POST">
             {% csrf_token%}
             {% if is_logged %}
@@ -42,11 +53,12 @@
         </form>
         {% if is_logged %}
         <br>
-        <div class="perfilButton">
-            <a href="{% url 'enfermeriaapp:perfil_view' %}" class="btn btn-info">Perfil</a>
-        </div>
+        <a href="{% url 'enfermeriaapp:perfil_view' %}" class="btn btn-info">Perfil</a>
+        <br><br>
         {% endif %}
     </div>
+
+
 
 </body>
 

@@ -196,7 +196,28 @@ def gestionar_servicios_view(request):
     else:
         if 'nuevo' in request.POST:
             return render(request, 'enfermeriaapp/registrar_servicio.html')
+        elif 'ver' in request.POST:
+            ser = Servicio.objects.filter(ser_estado=1, id=request.POST['ver'])[0]
+            return render(request, 'enfermeriaapp/ver_servicio.html', {'servicio':ser})
+        elif 'editar' in request.POST:
+            ser = Servicio.objects.filter(ser_estado=1, id=request.POST['editar'])[0]
+            return render(request, 'enfermeriaapp/editar_servicio.html', {'servicio':ser})
+        elif 'eliminar' in request.POST:
+            ser = Servicio.objects.filter(ser_estado=1, id=request.POST['eliminar'])[0]
+            return render(request, 'enfermeriaapp/eliminar_servicio.html', {'servicio':ser})
+
     return render(request, 'enfermeriaapp/errorPage.html')
+
+def eliminar_servicio_view(request):
+    if request.method == 'POST':
+        if 'eliminar' in request.POST:
+            ser = Servicio.objects.filter(ser_estado=1, id=request.POST['eliminar'])[0]
+            ser.ser_estado=0
+            ser.save()
+            return HttpResponseRedirect(reverse('enfermeriaapp:gestionar_servicios_view'))
+        elif 'cancelar' in request.POST:
+            return HttpResponseRedirect(reverse('enfermeriaapp:gestionar_servicios_view'))
+
 
 def registrar_servicio_view(request):
     if request.method == 'POST':
@@ -213,4 +234,24 @@ def registrar_servicio_view(request):
             else:
                 msg="Datos no validos"
                 return render(request, 'enfermeriaapp/registrar_servicio.html',{'message':msg})
+    return render(request, 'enfermeriaapp/errorPage.html')
+        
+def editar_servicio_view(request):
+    if request.method == 'POST':
+        if 'editar' in request.POST:
+            ser = Servicio.objects.filter(ser_estado=1, id=request.POST['editar'])[0]
 
+            new_nombre = request.POST['ser_nombre']
+            new_desc = request.POST['ser_desc']
+            new_precio = request.POST['ser_precio']
+            if is_not_empty(new_nombre) and new_nombre!=ser.ser_nombre:
+                ser.ser_nombre = new_nombre
+                ser.save()
+            if is_not_empty(new_desc) and new_desc!=ser.ser_desc:
+                ser.ser_desc = new_desc
+                ser.save()
+            if es_decimal(new_precio) and new_precio!=ser.ser_precio:
+                ser.ser_precio = new_precio
+                ser.save()
+            return HttpResponseRedirect(reverse('enfermeriaapp:gestionar_servicios_view'))
+    return render(request, 'enfermeriaapp/errorPage.html')

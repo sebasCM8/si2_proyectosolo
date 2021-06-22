@@ -14,12 +14,11 @@
 <body>
     {% include 'enfermeriaapp/enfermeria_navbar.html' %}
     <div class="container">
-        <div class="perfilHeader">
-            <h2>Editar perfil de usuario: <span>{{user.usu_username}}</span></h2>
-        </div>
         <div class="perfilBody">
+            <br>
             <div class="card">
                 <div class="card-body">
+                    <h2 class="card-title">Editar perfil de usuario: <span>{{user.usu_username}}</span></h2>
                     <form action="{% url 'enfermeriaapp:perfil_view' %}" method="POST">
                         {% csrf_token %}
 
@@ -27,7 +26,7 @@
                             <div class="col-md-12">
                                 <label for="" class="form-label">Contraseña</label>
                                 <input type="text" value="{{user.usu_password}}" class="form-control"
-                                    placeholder="contraseña..." name="password">
+                                    placeholder="contraseña..." name="password" maxlength="30">
                             </div>
                         </div>
                         <hr>
@@ -35,17 +34,17 @@
                             <div class="col-md-4">
                                 <label for="" class="form-label">Nombre</label>
                                 <input type="text" class="form-control" value="{{user.usu_per.per_nombre}}"
-                                    placeholder="nombre.." name="nombre">
+                                    placeholder="nombre.." name="nombre" maxlength="30">
                             </div>
                             <div class="col-md-4">
                                 <label for="" class="form-label">Apellido Paterno</label>
                                 <input type="text" value="{{user.usu_per.per_apellidoP}}" class="form-control"
-                                    placeholder="apellido paterno..." name="apellido_p">
+                                    placeholder="apellido paterno..." name="apellido_p" maxlength="30">
                             </div>
                             <div class="col-md-4">
                                 <label for="" class="form-label">Apellido Materno</label>
                                 <input type="text" value="{{user.usu_per.per_apellidoM}}" class="form-control"
-                                    placeholder="apellido materno" name="apellido_m">
+                                    placeholder="apellido materno" name="apellido_m" maxlength="30">
                             </div>
                         </div>
                         <hr>
@@ -53,26 +52,27 @@
                             <div class="col-md-6">
                                 <label for="" class="form-label">Celular</label>
                                 <input type="text" class="form-control" value="{{user.usu_per.per_celular}}"
-                                    placeholder="celular..." name="celular">
+                                    placeholder="celular..." name="celular" maxlength="12">
                             </div>
                             <div class="col-md-6">
                                 <label for="" class="form-label">Email</label>
                                 <input type="text" value="{{user.usu_per.per_email}}" class="form-control"
-                                    placeholder="email..." name="email">
+                                    placeholder="email..." name="email" maxlength="50">
                             </div>
                             <div class="col-md-6">
                                 <label for="" class="form-label">Direccion</label>
                                 <input type="text" value="{{user.usu_per.per_direccion}}" class="form-control"
-                                    placeholder="direccion..." name="direccion">
+                                    placeholder="direccion..." name="direccion" maxlength="80">
                             </div>
                         </div>
                         <br>
                         <button class="btn btn-primary" value="{{user.id}}" name="editar">Editar
                             datos</button>
-
                     </form>
                 </div>
             </div>
+            <br>
+            <a href="{% url 'enfermeriaapp:perfil_view' %}" class="btn btn-secondary">Volver a perfil</a>
         </div>
     </div>
 </body>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% include 'enfermeriaapp/enfermeria_links.html' %}
+    <title>Detalle de servicio</title>
+</head>
+<body>
+    {% include 'enfermeriaapp/enfermeria_navbar.html' %}
+    <div class="container">
+        <br>
+        <div class="card">
+            <div class="card-header">
+                <h3>Detalle de Servicio</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong>Nombre:</strong>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">{{servicio.ser_nombre}}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <p><strong>Precio:</strong> {{servicio.ser_precio}}</p>
+                    </div>
+                    <div class="col-md-9">
+                        <p><strong>Descripcion: </strong> {{servicio.ser_desc}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <a href="{% url 'enfermeriaapp:gestionar_servicios_view' %}" class="btn btn-secondary">Volver a servicios</a>
+    </div>
+</body>
+</html>

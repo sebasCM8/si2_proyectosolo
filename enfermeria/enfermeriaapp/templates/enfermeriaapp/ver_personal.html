@@ -13,36 +13,38 @@
     {% include 'enfermeriaapp/enfermeria_navbar.html' %}
     <div class="container">
         <br><br>
-        <div class="row">
-            <div class="col-md-4">
-                <h4>Nombre</h4>
-            </div>
-            <div class="col-md-4">
-                <h4>CI</h4>
-            </div>
-            <div class="col-md-4">
-                <h4>Opciones</h4>
-            </div>
-        </div>
-        <br>
-        <form action="{% url 'enfermeriaapp:ver_personal_view' %}" method="POST">
-            {% csrf_token %}
-            {% for persona in personal %}
+        <div style="background-color:white; margin:20px auto; padding:8px; border-radius:5px">
             <div class="row">
                 <div class="col-md-4">
-                    <label for="">{{persona.usu_per.per_nombre}}</label>
+                    <h4>Nombre</h4>
                 </div>
                 <div class="col-md-4">
-                    <label for="">{{persona.usu_per.per_ci}}</label>
+                    <h4>CI</h4>
                 </div>
                 <div class="col-md-4">
-                    <button class="btn btn-info" value="{{persona.id}}" name="ver">Ver</button>
-                    <button class="btn btn-danger" value="{{persona.id}}" name="eliminar">Eliminar</button>
+                    <h4>Opciones</h4>
                 </div>
             </div>
-            <hr>
-            {% endfor %}
-        </form>
+            <br>
+            <form action="{% url 'enfermeriaapp:ver_personal_view' %}" method="POST">
+                {% csrf_token %}
+                {% for persona in personal %}
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="">{{persona.usu_per.per_nombre}}</label>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="">{{persona.usu_per.per_ci}}</label>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-info" value="{{persona.id}}" name="ver">Ver</button>
+                        <button class="btn btn-danger" value="{{persona.id}}" name="eliminar">Eliminar</button>
+                    </div>
+                </div>
+                <hr>
+                {% endfor %}
+            </form>
+        </div>
     </div>
 </body>
 
