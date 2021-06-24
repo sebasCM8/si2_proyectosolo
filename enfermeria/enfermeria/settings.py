@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-xarxptsm3%r=vy%6+xva8#o*^1ceeb(9f*@lwtii$z))&=op##
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['sebastiancm.pythonanywhere.com']
 
 
 # Application definition
@@ -83,11 +83,11 @@ WSGI_APPLICATION = 'enfermeria.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'enfermeria_db',
-        'USER': 'postgres',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'sebastiancm$enfermeria_db',
+        'USER': 'sebastiancm',
+        'PASSWORD': 'wserver2021mysql',
+        'HOST': 'sebastiancm.mysql.pythonanywhere-services.com',
         'PORT': '',
     }
 }
@@ -130,6 +130,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/home/sebastiancm/si2_proyectosolo/enfermeria/static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

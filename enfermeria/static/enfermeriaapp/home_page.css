@@ -1,0 +1,40 @@
+.homeImage{
+    height: 18rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+}
+.backgImg{
+    position: relative;
+    left: 0px;
+    right:0px;  
+    background-color: #0375D6;
+}
+.eShadow{
+    border: 1px solid #c3c2c2;
+    box-shadow: 2px 2px 6px #888888, -2px -2px 6px #888888; 
+    background-color: white;
+}
+
+.ecard-header{
+    width: 100%;
+    border-bottom: 1px solid #686363;
+    margin: 10px 0px;
+    padding: 10px 0px;
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+.ecard-body{
+    padding: 20px 5px;
+}
+.logBtn{
+    position: absolute;
+    top:90%;
+    left: 2%;
+}
+
+.custoImage{
+    max-width: 50%;
+}
