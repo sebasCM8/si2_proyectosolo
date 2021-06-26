@@ -16,7 +16,7 @@ class Usuario(models.Model):
     usu_username = models.CharField(max_length=30)
     usu_password = models.CharField(max_length=30)
     usu_estado = models.IntegerField()
-    
+
     usu_per = models.ForeignKey(Persona, on_delete=models.CASCADE)
 
     def es_admin(self):
@@ -29,17 +29,12 @@ class Administrador(models.Model):
     adm_estado = models.IntegerField()
 
     adm_per = models.ForeignKey(Persona, on_delete=models.CASCADE)
-    
+
 class Enfermero(models.Model):
     enf_estado = models.IntegerField()
 
     enf_per = models.ForeignKey(Persona, on_delete=models.CASCADE)
 
-class Paciente(models.Model):
-    pac_estado = models.IntegerField()
-
-    pac_per = models.ForeignKey(Persona, on_delete=models.CASCADE)
-    
 
 class Servicio(models.Model):
     ser_nombre = models.CharField(max_length=40)
@@ -47,15 +42,6 @@ class Servicio(models.Model):
     ser_precio = models.DecimalField(max_digits=7,decimal_places=2)
     ser_estado = models.IntegerField()
 
-class Atencion(models.Model):
-    ate_estado = models.IntegerField()
-
-    ate_per = models.ForeignKey(Persona, on_delete=models.CASCADE)
-    ate_servicios = models.ManyToManyField(Servicio, through='AtencionXServicio')
-
-class AtencionXServicio(models.Model):
-    ate=models.ForeignKey(Atencion, on_delete=models.CASCADE)
-    ser=models.ForeignKey(Servicio, on_delete=models.CASCADE)
 
 class Reserva(models.Model):
     res_fechaReserva = models.DateField(auto_now=True)
@@ -67,11 +53,18 @@ class Reserva(models.Model):
     res_estadoRes = models.IntegerField()
     res_estado = models.IntegerField()
 
-    res_atenciones = models.ManyToManyField(Atencion, through='ReservaXAtencion')
+    res_persona = models.ForeignKey(Persona, on_delete=models.CASCADE, null=True)
 
-class ReservaXAtencion(models.Model):
+    res_servicios = models.ManyToManyField(Servicio, through='ReservaXServicio')
+
+class ReservaXServicio(models.Model):
     res = models.ForeignKey(Reserva, on_delete=models.CASCADE)
-    ate = models.ForeignKey(Atencion, on_delete=models.CASCADE)
+    ser = models.ForeignKey(Servicio, on_delete=models.CASCADE)
+
+class Tranresponse(models.Model):
+    tran_data = models.IntegerField()
+    tran_exito = models.IntegerField()
+    tran_msg = models.CharField(max_length=40, null=True)
 
 
 

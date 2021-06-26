@@ -1,12 +1,22 @@
+from django.http import JsonResponse
+
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect, reverse
 from .helper_classes.generic_methods import is_logged, is_not_empty, es_decimal, es_natural
-from .models import Persona, Enfermero, Administrador, Usuario, Servicio
+from .models import Persona, Enfermero, Administrador, Usuario, Servicio, Tranresponse
+
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.parsers import JSONParser
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .serializers import PersonaSerializer, UsuarioSerializer
+
 # ========================================
-#  HOME PAGE Y LOGIN 
+#  HOME PAGE Y LOGIN
 # ========================================
 def homePage_view(request):
     if request.method == 'GET':
-        has_login = False 
+        has_login = False
         if 'user_id' in request.session:
             has_login = True
         return render(request, 'enfermeriaapp/homePage.html', {'is_logged':has_login})
@@ -25,7 +35,7 @@ def login_view(request):
             eusuario = Usuario.objects.filter(usu_username=l_username, usu_password=l_password, usu_estado=1)
             if len(eusuario) == 1:
                 the_user = eusuario[0]
-                request.session['user_id'] = the_user.id 
+                request.session['user_id'] = the_user.id
                 return HttpResponseRedirect(reverse('enfermeriaapp:homepage_view'))
         return render(request, 'enfermeriaapp/login.html', {'msg':'Usuario o contraseña incorrectas'})
 
@@ -68,7 +78,7 @@ def ver_personal_view(request):
             return HttpResponseRedirect(reverse('enfermeriaapp:ver_personal_view'))
         elif 'cancelar' in request.POST:
             return HttpResponseRedirect(reverse('enfermeriaapp:ver_personal_view'))
-            
+
     return render(request, 'enfermeriaapp/errorPage.html')
 
 def registrar_persona_view(request):
@@ -123,10 +133,10 @@ def registrar_persona_view(request):
                             return render(request, 'enfermeriaapp/registrar_persona.html', {'msg':msg, 'ok':False})
                     else:
                         msg = "El nombre de usuario ya esta en uso"
-                        return render(request, 'enfermeriaapp/registrar_persona.html', {'msg':msg, 'ok':False})                               
+                        return render(request, 'enfermeriaapp/registrar_persona.html', {'msg':msg, 'ok':False})
                 else:
                     msg = "El carnet ya esta registrado"
-                    return render(request, 'enfermeriaapp/registrar_persona.html', {'msg':msg, 'ok':False})              
+                    return render(request, 'enfermeriaapp/registrar_persona.html', {'msg':msg, 'ok':False})
             else:
                 msg = "Rellene todos los datos correctamente para registrar la persona"
                 return render(request, 'enfermeriaapp/registrar_persona.html', {'msg':msg, 'ok':False})
@@ -235,7 +245,7 @@ def registrar_servicio_view(request):
                 msg="Datos no validos"
                 return render(request, 'enfermeriaapp/registrar_servicio.html',{'message':msg})
     return render(request, 'enfermeriaapp/errorPage.html')
-        
+
 def editar_servicio_view(request):
     if request.method == 'POST':
         if 'editar' in request.POST:
@@ -255,3 +265,64 @@ def editar_servicio_view(request):
                 ser.save()
             return HttpResponseRedirect(reverse('enfermeriaapp:gestionar_servicios_view'))
     return render(request, 'enfermeriaapp/errorPage.html')
+
+# ========================================
+#  APIS
+# ========================================
+
+# @csrf_exempt
+@api_view(['GET'])
+def get_persona_ci(request, ci, format=None):
+    if request.method == 'GET':
+        the_ci = str(ci)
+        la_persona = Persona.objects.filter(per_estado=1, per_ci=the_ci)
+        if len(la_persona)>0:
+            the_serializer = PersonaSerializer(la_persona[0])
+            return Response(the_serializer.data)
+    return Response(status=status.HTTP_404_NOT_FOUND)
+
+@api_view(['GET', 'POST'])
+def persona_list(request, format=None):
+    if request.method == 'GET':
+        personas = Persona.objects.filter(per_estado=1)
+        the_serializer = PersonaSerializer(personas, many=True)
+        return Response(the_serializer.data)
+    elif request.method == 'POST':
+        the_serializer = PersonaSerializer(data=request.data)
+        if the_serializer.is_valid():
+            the_serializer.save()
+            return Response(the_serializer.data, status=status.HTTP_201_CREATED)
+        return Response(the_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def persona_detail(request, pk, format=None):
+    try:
+        la_persona = Persona.objects.get(pk=pk)
+    except Persona.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        the_serializer = PersonaSerializer(la_persona)
+        return Response(the_serializer.data)
+    elif request.method == 'PUT':
+        the_serializer = PersonaSerializer(la_persona, data=request.data)
+        if the_serializer.is_valid():
+           the_serializer.save()
+           return Response(the_serializer.data)
+        return Response(the_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'DELETE':
+        la_persona.per_estado = 0
+        la_persona.save()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['POST'])
+def register_user(request, format=None):
+    if request.method == 'POST':
+       the_serializer = UsuarioSerializer(data=request.data)
+       if the_serializer.is_valid():
+           the_serializer.save()
+           return Response(the_serializer.data, status=status.HTTP_201_CREATED)
+    return Response(the_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
