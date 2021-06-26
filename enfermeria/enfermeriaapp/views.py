@@ -324,5 +324,13 @@ def register_user(request, format=None):
            return Response(the_serializer.data, status=status.HTTP_201_CREATED)
     return Response(the_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET'])
+def get_user_username(request, username, format=None):
+    if request.method == 'GET':
+        user = Usuario.objects.filter(usu_estado=1, usu_username=username)
+        if len(user) > 0:
+            the_serializer = UsuarioSerializer(user[0])
+            return Response(the_serializer.data)
+    return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
