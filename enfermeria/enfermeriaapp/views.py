@@ -9,7 +9,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import PersonaSerializer, UsuarioSerializer
+from .serializers import PersonaSerializer, UsuarioSerializer, ServicioSerializer
 
 # ========================================
 #  HOME PAGE Y LOGIN
@@ -333,4 +333,10 @@ def get_user_username(request, username, format=None):
             return Response(the_serializer.data)
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
-
+@api_view(['GET'])
+def get_servicios(request, format=None):
+    if request.method == 'GET':
+        servicios = Servicio.objects.filter(ser_estado=1)
+        the_serializer = ServicioSerializer(servicios, many=True)
+        return Response(the_serializer.data)
+    return Response(status=status.HTTP_400_BAD_REQUEST)
