@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from enfermeriaapp.models import Persona, Tranresponse, Usuario, Servicio
+from enfermeriaapp.models import Persona, Tranresponse, Usuario, Servicio, Reserva, ReservaXServicio
 
 class PersonaSerializer(serializers.ModelSerializer):
     class Meta:
@@ -20,3 +20,13 @@ class ServicioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Servicio
         fields = ['id', 'ser_nombre', 'ser_desc', 'ser_precio', 'ser_estado']
+
+class ReservaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reserva
+        fields = ['id', 'res_fechaReserva', 'res_horaReserva', 'res_fechaServicio', 'res_horaServicio', 'res_lat', 'res_lng', 'res_estadoRes', 'res_estado', 'res_persona']
+
+class ReservaXServicioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ReservaXServicio
+        fields = ['id', 'res', 'ser', 'cant']

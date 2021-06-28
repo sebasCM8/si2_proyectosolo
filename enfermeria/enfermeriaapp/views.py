@@ -9,7 +9,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import PersonaSerializer, UsuarioSerializer, ServicioSerializer
+from .serializers import PersonaSerializer, UsuarioSerializer, ServicioSerializer, ReservaSerializer, ReservaXServicioSerializer
 
 # ========================================
 #  HOME PAGE Y LOGIN
@@ -322,7 +322,7 @@ def register_user(request, format=None):
        if the_serializer.is_valid():
            the_serializer.save()
            return Response(the_serializer.data, status=status.HTTP_201_CREATED)
-    return Response(the_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response(status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
 def get_user_username(request, username, format=None):
@@ -339,4 +339,22 @@ def get_servicios(request, format=None):
         servicios = Servicio.objects.filter(ser_estado=1)
         the_serializer = ServicioSerializer(servicios, many=True)
         return Response(the_serializer.data)
+    return Response(status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def insert_reserva(request, format=None):
+    if request.method == 'POST':
+        the_serializer = ReservaSerializer(data=request.data)
+        if the_serializer.is_valid():
+            the_serializer.save()
+            return Response(the_serializer.data, status=status.HTTP_201_CREATED)
+    return Response(status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def insert_resdet(request, format=None):
+    if request.method == 'POST':
+        the_serializer = ReservaXServicioSerializer(data=request.data)
+        if the_serializer.is_valid():
+            the_serializer.save()
+            return Response(the_serializer.data, status=status.HTTP_201_CREATED)
     return Response(status=status.HTTP_400_BAD_REQUEST)

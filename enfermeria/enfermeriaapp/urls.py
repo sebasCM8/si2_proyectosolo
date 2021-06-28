@@ -19,7 +19,9 @@ urlpatterns = [
     path('api_persona_ci/<int:ci>/', views.get_persona_ci),
     path('api_register_usuario/', views.register_user),
     path('api_get_user_username/<str:username>/', views.get_user_username),
-    path('api_get_servicios/', views.get_servicios)
+    path('api_get_servicios/', views.get_servicios),
+    path('api_insert_reserva/', views.insert_reserva),
+    path('api_insert_resdet/', views.insert_resdet)
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

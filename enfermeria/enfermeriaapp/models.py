@@ -60,6 +60,7 @@ class Reserva(models.Model):
 class ReservaXServicio(models.Model):
     res = models.ForeignKey(Reserva, on_delete=models.CASCADE)
     ser = models.ForeignKey(Servicio, on_delete=models.CASCADE)
+    cant = models.IntegerField(null=True)
 
 class Tranresponse(models.Model):
     tran_data = models.IntegerField()
