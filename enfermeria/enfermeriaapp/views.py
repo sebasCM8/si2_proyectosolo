@@ -295,7 +295,22 @@ def gestionar_solicitudes(request):
             enfermeros = Enfermero.objects.filter(enf_estado=1)
             return render(request, 'enfermeriaapp/atender_solicitud.html', {'res':res, 'servicios':detalle, 'enfermeros':enfermeros, 'msg':'Selccione un enfermero'})
     return render(request, 'enfermeriaapp/errorPage.html')
-
+def atender_solicitudes(request):
+    if request.method == 'GET':
+        if is_logged(request.session):
+            the_user = Usuario.objects.filter(usu_estado=1, id=request.session['user_id'])[0]
+            if the_user.es_enfermero():
+                enf = Enfermero.objects.filter(enf_estado=1, enf_per=the_user.usu_per)[0]
+                atenciones = Reserva.objects.filter(res_estado=1,res_enfermero=enf)
+                return render(request, 'enfermeriaapp/mis_atenciones.html', {'solicitudes':atenciones})
+            else:
+                return render(request, 'enfermeriaapp/errorPage.html')
+    elif request.method == 'POST':
+        if 'atender' in request.POST:
+            res = Reserva.objects.filter(id=request.POST['atender'])[0]
+            detalle = ReservaXServicio.objects.filter(res=res)
+            return render(request, 'enfermeriaapp/atencion_detalle.html', {'res':res, 'servicios':detalle})
+    return render(request, 'enfermeriaapp/errorPage.html')
 
 # ========================================
 #  APIS

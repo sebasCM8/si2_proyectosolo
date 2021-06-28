@@ -8,7 +8,7 @@
 
     {% include 'enfermeriaapp/enfermeria_links.html' %}
 
-    <title>Atender solicitud</title>
+    <title>Atencion</title>
 </head>
 
 <body>
@@ -17,7 +17,7 @@
         <br>
         <div class="card">
             <div class="card-header">
-                <h4>Detalle de solicitud</h4>
+                <h4>Detalle de atencion</h4>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -48,25 +48,10 @@
                 </div>
                 <hr>
                 {% endfor %}
-                <h4>Asignar un enfermero.- </h4>
-                <form action="{% url 'enfermeriaapp:gestionar_solicitudes' %}" method="POST">
-                    {% csrf_token %}
-                    {% for enfer in enfermeros %}
-                    <div class="form-check">
-                        <input type="radio" name="enfermero" value="{{enfer.id}}" class="form-check-input">
-                        <label>{{enfer.enf_per.per_nombre}} - {{enfer.enf_per.per_ci}}</label>
-                    </div>
-                    <br />
-                    {% endfor %}
-                    <button name="asignar" value="{{res.id}}" class="btn btn-success">Asignar</button>
-                </form>
-                {% if msg %}
-                <label for="" style="color: red;">{{msg}}</label>
-                {% endif %}
             </div>
         </div>
         <br><br>
-        <a class="btn btn-secondary" href="{% url 'enfermeriaapp:gestionar_solicitudes' %}">Volver a solicitudes</a>
+        <a class="btn btn-secondary" href="{% url 'enfermeriaapp:atender_solicitudes' %}">Volver a atenciones</a>
         <br><br>
     </div>
 </body>

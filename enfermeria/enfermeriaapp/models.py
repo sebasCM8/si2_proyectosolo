@@ -23,6 +23,10 @@ class Usuario(models.Model):
         the_admin = Administrador.objects.filter(adm_estado=1, adm_per=self.usu_per)
         if len(the_admin) == 1: return True
         return False
+    def es_enfermero(self):
+        the_nurse = Enfermero.objects.filter(enf_estado=1, enf_per=self.usu_per)
+        if len(the_nurse) == 1: return True
+        return False
 
 
 class Administrador(models.Model):

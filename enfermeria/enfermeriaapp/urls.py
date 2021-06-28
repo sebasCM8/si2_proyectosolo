@@ -22,7 +22,8 @@ urlpatterns = [
     path('api_get_servicios/', views.get_servicios),
     path('api_insert_reserva/', views.insert_reserva),
     path('api_insert_resdet/', views.insert_resdet),
-    path('gestionarAtenciones/', views.gestionar_solicitudes, name="gestionar_solicitudes")
+    path('gestionarAtenciones/', views.gestionar_solicitudes, name="gestionar_solicitudes"),
+    path('mis_atenciones/', views.atender_solicitudes, name="atender_solicitudes")
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
