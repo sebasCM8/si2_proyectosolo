@@ -54,12 +54,15 @@
                     {% for enfer in enfermeros %}
                     <div class="form-check">
                         <input type="radio" name="enfermero" value="{{enfer.id}}" class="form-check-input">
-                        <label>{{enfer.enf_per.per_nombre}}</label>
+                        <label>{{enfer.enf_per.per_nombre}} - {{enfer.enf_per.per_ci}}</label>
                     </div>
                     <br />
                     {% endfor %}
-                    <button name="asignar" class="btn btn-success">Asignar</button>
+                    <button name="asignar" value="{{res.id}}" class="btn btn-success">Asignar</button>
                 </form>
+                {% if msg %}
+                <label for="" style="color: red;">{{msg}}</label>
+                {% endif %}
             </div>
         </div>
         <br><br>

@@ -283,6 +283,16 @@ def gestionar_solicitudes(request):
             detalle = ReservaXServicio.objects.filter(res=res)
             enfermeros = Enfermero.objects.filter(enf_estado=1)
             return render(request, 'enfermeriaapp/atender_solicitud.html', {'res':res, 'servicios':detalle, 'enfermeros':enfermeros})
+        elif 'asignar' in request.POST:
+            res = Reserva.objects.filter(id=request.POST['asignar'])[0]
+            if 'enfermero' in request.POST:
+                el_enfermero = Enfermero.objects.filter(id=request.POST['enfermero'])[0]
+                res.res_enfermero = el_enfermero
+                res.save()
+                return HttpResponseRedirect(reverse('enfermeriaapp:gestionar_solicitudes'))
+            detalle = ReservaXServicio.objects.filter(res=res)
+            enfermeros = Enfermero.objects.filter(enf_estado=1)
+            return render(request, 'enfermeriaapp/atender_solicitud.html', {'res':res, 'servicios':detalle, 'enfermeros':enfermeros, 'msg':'Selccione un enfermero'})
     return render(request, 'enfermeriaapp/errorPage.html')
 
 
