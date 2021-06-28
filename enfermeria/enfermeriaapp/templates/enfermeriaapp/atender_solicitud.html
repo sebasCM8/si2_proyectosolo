@@ -21,7 +21,8 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-4"><label for=""><strong>Paciente: </strong>{{res.res_persona.per_id}}</label>
+                    <div class="col-md-4"><label for=""><strong>Paciente:
+                            </strong>{{res.res_persona.per_nombre}}</label>
                     </div>
                     <div class="col-md-4"><label for=""><strong>Realizado el: </strong>{{res.res_fechaReserva}}</label>
                     </div>
@@ -32,8 +33,12 @@
                 <h4>Servicios.- </h4>
                 <br>
                 <div class="row">
-                    <div class="col-md-6"><h4>Nombre</h4></div>
-                    <div class="col-md-6"><h4>Cantidad</h4></div>
+                    <div class="col-md-6">
+                        <h4>Nombre</h4>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>Cantidad</h4>
+                    </div>
                 </div>
                 <br>
                 {% for serv in servicios %}
@@ -44,6 +49,23 @@
                 <hr>
                 {% endfor %}
                 <h4>Asignar un enfermero.- </h4>
+                <form action="{% url 'enfermeriaapp:gestionar_solicitudes' %}" method="POST">
+                    {% csrf_token %}
+                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#enfs"
+                        aria-expanded="false" aria-controls="enfs">
+                        Asignar
+                    </button> <br />
+                    <div class="collapse" id="enfs">
+                        {% for enfer in enfermeros %}
+                        <div class="form-check">
+                            <input type="radio" name="enfermero" value="{{enfer.id}}" class="form-check-input">
+                            <label>{{enfer.enf_per.per_nombre}}</label>
+                        </div>
+                        <br />
+                        {% endfor %}
+                    </div>
+                    <button name="asignar" class="btn btn-success">Asignar</button>
+                </form>
             </div>
         </div>
         <br><br>

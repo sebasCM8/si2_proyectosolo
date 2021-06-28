@@ -281,7 +281,8 @@ def gestionar_solicitudes(request):
         if 'atender' in request.POST:
             res = Reserva.objects.filter(id=request.POST['atender'])[0]
             detalle = ReservaXServicio.objects.filter(res=res)
-            return render(request, 'enfermeriaapp/atender_solicitud.html', {'res':res, 'servicios':detalle})
+            enfermeros = Enfermero.objects.filter(enf_estado=1)
+            return render(request, 'enfermeriaapp/atender_solicitud.html', {'res':res, 'servicios':detalle, 'enfermeros':enfermeros})
     return render(request, 'enfermeriaapp/errorPage.html')
 
 
