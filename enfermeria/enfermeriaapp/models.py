@@ -54,6 +54,7 @@ class Reserva(models.Model):
     res_estado = models.IntegerField()
 
     res_persona = models.ForeignKey(Persona, on_delete=models.CASCADE, null=True)
+    res_enfermero = models.ForeignKey(Enfermero, on_delete=models.CASCADE, null=True)
 
     res_servicios = models.ManyToManyField(Servicio, through='ReservaXServicio')
 
