@@ -52,6 +52,10 @@
                 {% endfor %}
             </div>
         </div>
+        <div class="form-group">
+            <input id="lat" value="{{res.res_lat}}" type="text" class="form-control">
+            <input id="lng" value="{{res.res_lng}}" type="text" class="form-control">
+        </div>
         <div id="map"></div>
         <br><br>
         <a class="btn btn-secondary" href="{% url 'enfermeriaapp:atender_solicitudes' %}">Volver a atenciones</a>
