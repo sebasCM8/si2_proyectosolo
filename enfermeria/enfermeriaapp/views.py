@@ -2,7 +2,7 @@ from django.http import JsonResponse
 
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect, reverse
 from .helper_classes.generic_methods import is_logged, is_not_empty, es_decimal, es_natural
-from .models import Persona, Enfermero, Administrador, Usuario, Servicio, Tranresponse
+from .models import Persona, Enfermero, Administrador, Usuario, Servicio, Tranresponse, Reserva
 
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
@@ -265,6 +265,20 @@ def editar_servicio_view(request):
                 ser.save()
             return HttpResponseRedirect(reverse('enfermeriaapp:gestionar_servicios_view'))
     return render(request, 'enfermeriaapp/errorPage.html')
+# ========================================
+#  GESTIONAR SOLICITUDES ATENCION
+# ========================================
+def gestionar_solicitudes(request):
+    if request.method == 'GET':
+        if is_logged(request.session):
+            the_user = Usuario.objects.filter(usu_estado=1, id=request.session['user_id'])[0]
+            if the_user.es_admin():
+                solicitudes = Reserva.objects.filter(res_estadoRes=0)
+                return render(request, 'enfermeriaapp/gestionar_solicitudes.html', {'solicitudes':solicitudes})
+            else:
+                return render(request, 'enfermeriaapp/errorPage.html')
+    return render(request, 'enfermeriaapp/errorPage.html')
+
 
 # ========================================
 #  APIS

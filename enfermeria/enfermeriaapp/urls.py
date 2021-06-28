@@ -21,7 +21,8 @@ urlpatterns = [
     path('api_get_user_username/<str:username>/', views.get_user_username),
     path('api_get_servicios/', views.get_servicios),
     path('api_insert_reserva/', views.insert_reserva),
-    path('api_insert_resdet/', views.insert_resdet)
+    path('api_insert_resdet/', views.insert_resdet),
+    path('gestionarAtenciones/', views.gestionar_solicitudes, name="gestionar_solicitudes")
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
