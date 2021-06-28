@@ -20,20 +20,20 @@
                 <h4 class="card-title">Solicitudes</h4>
                 <br>
                 <div class="row">
-                    <div class="col-md-4"><label for="">Cliente</label></div>
-                    <div class="col-md-4"><label for="">Realizada</label></div>
-                    <div class="col-md-4"><label for="">Fecha servicio</label></div>
-                    <div class="col-md-4"><label for="">Opciones</label></div>
+                    <div class="col-md-3"><h4>Cliente</h4></div>
+                    <div class="col-md-3"><h4>Realizada</h4></div>
+                    <div class="col-md-3"><h4>Fecha servicio</h4></div>
+                    <div class="col-md-3"><h4>Opciones</h4></div>
                 </div>
                 <br>
                 <form action="{% url 'enfermeriaapp:gestionar_solicitudes' %}" method="POST">
                     {% csrf_token %}
                     {% for solicitud in solicitudes %}
                     <div class="row">
-                        <div class="col-md-4"><label for="">{{solicitud.res_persona.per_nombre}}</label></div>
-                        <div class="col-md-4"><label for="">{{solicitud.res_fechaReserva}}</label></div>
-                        <div class="col-md-4"><label for="">{{solicitud.res_fechaServicio}}</label></div>
-                        <div class="col-md-4"><button name="atender" value="{{solicitud.id}}"
+                        <div class="col-md-3"><label for="">{{solicitud.res_persona.per_nombre}}</label></div>
+                        <div class="col-md-3"><label for="">{{solicitud.res_fechaReserva}}</label></div>
+                        <div class="col-md-3"><label for="">{{solicitud.res_fechaServicio}}</label></div>
+                        <div class="col-md-3"><button name="atender" value="{{solicitud.id}}"
                                 class="btn btn-success">Atender</button></div>
                     </div>
                     {% endfor %}

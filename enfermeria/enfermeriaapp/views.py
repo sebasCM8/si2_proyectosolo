@@ -2,7 +2,7 @@ from django.http import JsonResponse
 
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect, reverse
 from .helper_classes.generic_methods import is_logged, is_not_empty, es_decimal, es_natural
-from .models import Persona, Enfermero, Administrador, Usuario, Servicio, Tranresponse, Reserva
+from .models import Persona, Enfermero, Administrador, Usuario, Servicio, Tranresponse, Reserva, ReservaXServicio
 
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
@@ -277,6 +277,11 @@ def gestionar_solicitudes(request):
                 return render(request, 'enfermeriaapp/gestionar_solicitudes.html', {'solicitudes':solicitudes})
             else:
                 return render(request, 'enfermeriaapp/errorPage.html')
+    elif request.method == 'POST':
+        if 'atender' in request.POST:
+            res = Reserva.objects.filter(id=request.POST['atender'])[0]
+            detalle = ReservaXServicio.objects.filter(res=res)
+            return render(request, 'enfermeriaapp/atender_solicitud.html', {'res':res, 'servicios':detalle})
     return render(request, 'enfermeriaapp/errorPage.html')
 
 

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% include 'enfermeriaapp/enfermeria_links.html' %}
+
+    <title>Document</title>
+</head>
+
+<body>
+    {% include 'enfermeriaapp/enfermeria_navbar.html' %}
+    <div class="container">
+        <br>
+        <div class="card">
+            <div class="card-header">
+                <h4>Detalle de solicitud</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4"><label for=""><strong>Paciente: </strong>{{res.res_persona.per_id}}</label>
+                    </div>
+                    <div class="col-md-4"><label for=""><strong>Realizado el: </strong>{{res.res_fechaReserva}}</label>
+                    </div>
+                    <div class="col-md-4"><label for=""><strong>Para el: </strong>{{res.res_fechaServicio}} -
+                            {{res.res_horaServicio}}</label></div>
+                </div>
+                <hr>
+                <h4>Servicios.- </h4>
+                <br>
+                <div class="row">
+                    <div class="col-md-6"><h4>Nombre</h4></div>
+                    <div class="col-md-6"><h4>Cantidad</h4></div>
+                </div>
+                <br>
+                {% for serv in servicios %}
+                <div class="row">
+                    <div class="col-md-6"><label for="">{{serv.ser.ser_nombre}}</label></div>
+                    <div class="col-md-6"><label for="">{{serv.cant}}</label></div>
+                </div>
+                <hr>
+                {% endfor %}
+                <h4>Asignar un enfermero.- </h4>
+            </div>
+        </div>
+        <br><br>
+        <a class="btn btn-secondary" href="{% url 'enfermeriaapp:gestionar_solicitudes' %}">Volver a solicitudes</a>
+        <br><br>
+    </div>
+</body>
+
+</html>
