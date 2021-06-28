@@ -288,6 +288,7 @@ def gestionar_solicitudes(request):
             if 'enfermero' in request.POST:
                 el_enfermero = Enfermero.objects.filter(id=request.POST['enfermero'])[0]
                 res.res_enfermero = el_enfermero
+                res.res_estadoRes = 1
                 res.save()
                 return HttpResponseRedirect(reverse('enfermeriaapp:gestionar_solicitudes'))
             detalle = ReservaXServicio.objects.filter(res=res)
